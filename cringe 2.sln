@@ -1,25 +1,74 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.9.34714.143
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cringe 2", "cringe 2\cringe 2.csproj", "{9E877E65-A72B-4EE7-91F7-2C04D4EC84D6}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9E877E65-A72B-4EE7-91F7-2C04D4EC84D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9E877E65-A72B-4EE7-91F7-2C04D4EC84D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9E877E65-A72B-4EE7-91F7-2C04D4EC84D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9E877E65-A72B-4EE7-91F7-2C04D4EC84D6}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {65D72972-0218-4FFE-BA7D-12CE21E6F80D}
-	EndGlobalSection
-EndGlobal
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace test2
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int money = 100;    //баланс кошелька
+
+            bool canBuy;        //платежеспособность   
+
+            //переменные стоимости товаров
+            int swordUnitPrice = 10;
+            int daggerUnitPrice = 8;
+            int bladeUnitPrice = 30;
+            int katanaUnitPrice = 15;
+
+            //вывод ассортимента магазина                                 
+            Console.WriteLine("List of products: ");
+            Console.WriteLine($"Sword — {swordUnitPrice}$");
+            Console.WriteLine($"Blade — {bladeUnitPrice}$");
+            Console.WriteLine($"Dagger — {daggerUnitPrice}$");
+            Console.WriteLine($"Katana — {katanaUnitPrice}$");
+
+            //вывод предложения купить что-то
+            Console.WriteLine($"What do you want to buy? Balance: {money}$");
+            Console.WriteLine("Enter price ");
+
+            int offer = Convert.ToInt32(Console.ReadLine());
+
+        metka1:
+
+            if (offer > 0)
+            {
+                canBuy = money - offer >= 0;
+                if (canBuy)
+                {
+                    money -= offer;
+
+                    string item;
+                    switch (offer)
+                    {
+                        case 10: item = "Sword";  break;
+                        case 8: item = "Dagger"; break;
+                        case 30: item = "Blade"; break;
+                        case 15: item = "Katana"; break;
+                        default: item = "Unexpected item. You robbed me!"; break;
+                    };
+
+                    Console.WriteLine($"You purchased {item}. Balance {money}$");
+                }
+                else Console.WriteLine($"Not enough money. Balance {money}$");
+
+                Console.WriteLine($"Print EXIT if you wanna go out or price for contune...");
+
+                string pt = Console.ReadLine().ToLower();
+                if (pt != "exit")
+                {
+                    Console.WriteLine($"Contune...");
+                    offer = Convert.ToInt32(pt);
+                    goto metka1;
+                }
+                else return;
+            }
+            else return;
+        }
+    }
+}
+
